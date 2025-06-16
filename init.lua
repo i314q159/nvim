@@ -59,7 +59,7 @@ vim.api.nvim_set_keymap("n", "<leader>a", "gg<S-v>G", { noremap = true, silent =
 
 -- folke/lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-local mirror = "https://ghproxy.net/"
+local mirror = ""
 
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -114,6 +114,11 @@ local lsps = {
 				"lua_ls",
 				"stylua",
 				"gopls",
+				"black",
+				"isort",
+				"pylsp",
+				"pyright",
+				"jsonls",
 			},
 		},
 	},
@@ -173,9 +178,6 @@ local treesitters = {
 local lines = {
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = {
-			"i314q159/lsc",
-		},
 		opts = {
 			options = {
 				icons_enabled = true,
@@ -201,10 +203,10 @@ local lines = {
 							return require("lsp-info").lsp_info()
 						end,
 					},
-					{ "datetime", style = "iso" },
+					{ "datetime",  style = "iso" },
 					{
 						function()
-							return require("lsc").loaded_slash_count()
+							return require("lsp-info").loaded_slash_count()
 						end,
 					},
 					{ "encoding" },
@@ -259,14 +261,6 @@ local folkes = {
 		},
 	},
 	{
-		"folke/snacks.nvim",
-		opts = {
-			indent = {
-				enabled = true,
-			},
-		},
-	},
-	{
 		"folke/lazydev.nvim",
 		opts = {},
 	},
@@ -302,10 +296,10 @@ local cmps = {
 }
 
 local colorschemes = {
-    {
-        "catppuccin/nvim",
-        opts = {}
-    }
+	{
+		"catppuccin/nvim",
+		opts = {},
+	},
 }
 
 local plugins = {
@@ -316,7 +310,7 @@ local plugins = {
 	lines,
 	lsps,
 	treesitters,
-    colorschemes,
+	colorschemes,
 	{
 		"mateuszwieloch/automkdir.nvim",
 		"nvim-lua/plenary.nvim",
@@ -375,7 +369,7 @@ local plugins = {
 		"lewis6991/gitsigns.nvim",
 		opts = {},
 		keys = {
-			{ "<leader>h", "<cmd>Gitsigns preview_hunk<cr>", desc = "Gitsigns Preview Hunk" },
+			{ "<leader>h", "<cmd>Gitsigns preview_hunk<cr>",  desc = "Gitsigns Preview Hunk" },
 			{ "<leader>n", "<cmd>Gitsigns next_hunk<cr><cr>", desc = "Gitsigns Next Hunk" },
 		},
 		lazy = false,
