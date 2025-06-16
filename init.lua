@@ -203,7 +203,7 @@ local lines = {
 							return require("lsp-info").lsp_info()
 						end,
 					},
-					{ "datetime",  style = "iso" },
+					{ "datetime", style = "iso" },
 					{
 						function()
 							return require("lsp-info").loaded_slash_count()
@@ -233,7 +233,6 @@ local folkes = {
 		},
 		lazy = false,
 	},
-	-- { "folke/neodev.nvim", opts = {} },
 	{
 		"folke/todo-comments.nvim",
 		lazy = false,
@@ -241,9 +240,6 @@ local folkes = {
 	},
 	{
 		"folke/trouble.nvim",
-		keys = {
-			{ "<leader>t", "<cmd>TroubleToggle<cr>", desc = "Trouble Toggle" },
-		},
 		opts = {
 			position = "bottom",
 			icons = true,
@@ -269,6 +265,7 @@ local folkes = {
 local icons = {
 	{
 		"echasnovski/mini.icons",
+		opt = {},
 	},
 	{
 		"nvim-tree/nvim-web-devicons",
@@ -302,6 +299,17 @@ local colorschemes = {
 	},
 }
 
+local mds = {
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+		opts = {},
+	},
+}
+
 local plugins = {
 	cmps,
 	fmts,
@@ -309,13 +317,9 @@ local plugins = {
 	icons,
 	lines,
 	lsps,
+	mds,
 	treesitters,
 	colorschemes,
-	{
-		"mateuszwieloch/automkdir.nvim",
-		"nvim-lua/plenary.nvim",
-		"kilavila/nvim-gitignore",
-	},
 	{
 		"axieax/urlview.nvim",
 		lazy = false,
@@ -369,7 +373,7 @@ local plugins = {
 		"lewis6991/gitsigns.nvim",
 		opts = {},
 		keys = {
-			{ "<leader>h", "<cmd>Gitsigns preview_hunk<cr>",  desc = "Gitsigns Preview Hunk" },
+			{ "<leader>h", "<cmd>Gitsigns preview_hunk<cr>", desc = "Gitsigns Preview Hunk" },
 			{ "<leader>n", "<cmd>Gitsigns next_hunk<cr><cr>", desc = "Gitsigns Next Hunk" },
 		},
 		lazy = false,
@@ -500,6 +504,12 @@ local plugins = {
 	},
 	{
 		"cappyzawa/trim.nvim",
+		opts = {},
+	},
+	{
+		"y3owk1n/time-machine.nvim",
+		version = "*",
+		cmds = { "TimeMachineToggle" },
 		opts = {},
 	},
 }
