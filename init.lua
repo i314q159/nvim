@@ -59,7 +59,7 @@ vim.api.nvim_set_keymap("n", "<leader>a", "gg<S-v>G", { noremap = true, silent =
 
 -- folke/lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-local mirror = ""
+local mirror = "https://ghproxy.net/"
 
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -231,10 +231,7 @@ local folkes = {
 		},
 		lazy = false,
 	},
-	{
-		"folke/neodev.nvim",
-		opts = {},
-	},
+	-- { "folke/neodev.nvim", opts = {} },
 	{
 		"folke/todo-comments.nvim",
 		lazy = false,
@@ -261,18 +258,17 @@ local folkes = {
 			transparent = false,
 		},
 	},
-}
-
-local rusts = {
 	{
-		"saecki/crates.nvim",
-		tag = "stable",
-		event = {
-			"BufRead Cargo.toml",
+		"folke/snacks.nvim",
+		opts = {
+			indent = {
+				enabled = true,
+			},
 		},
-		config = function()
-			require("crates").setup()
-		end,
+	},
+	{
+		"folke/lazydev.nvim",
+		opts = {},
 	},
 }
 
@@ -299,35 +295,28 @@ local cmps = {
 		-- build = "cargo build --release",
 		opts = {
 			keymap = {
-				preset = "enter",
-			},
-			completion = {
-				documentation = {
-					auto_show = true,
-				},
-			},
-			signature = {
-				enabled = true,
-			},
-			cmdline = {
-				completion = {
-					menu = {
-						auto_show = true,
-					},
-				},
+				preset = "super-tab",
 			},
 		},
 	},
 }
 
+local colorschemes = {
+    {
+        "catppuccin/nvim",
+        opts = {}
+    }
+}
+
 local plugins = {
+	cmps,
 	fmts,
 	folkes,
 	icons,
 	lines,
 	lsps,
-	rusts,
 	treesitters,
+    colorschemes,
 	{
 		"mateuszwieloch/automkdir.nvim",
 		"nvim-lua/plenary.nvim",
@@ -360,9 +349,7 @@ local plugins = {
 	},
 	{
 		"toppair/reach.nvim",
-		cmd = {
-			"ReachOpen",
-		},
+		cmd = { "ReachOpen" },
 		opts = {},
 		keys = {
 			{ "<leader>b", "<cmd>ReachOpen buffers<cr>", desc = "ReachOpen Buffers" },
@@ -394,7 +381,7 @@ local plugins = {
 		lazy = false,
 	},
 	{
-		"nvimdev/hlsearch.nvim",
+		"kevinhwang91/nvim-hlslens",
 		opts = {},
 	},
 	{
@@ -493,18 +480,37 @@ local plugins = {
 			{ "<leader>c", "<cmd>lua require('vscode-opener').open()<CR>", desc = "Open VSCode Opener Menu" },
 		},
 	},
+	{
+		"okuuva/auto-save.nvim",
+		version = "^1.0.0",
+		event = {
+			"InsertLeave",
+			"TextChanged",
+		},
+	},
+	{
+		"echasnovski/mini.diff",
+		version = "*",
+		opts = {},
+	},
+	{
+		"petertriho/nvim-scrollbar",
+		opts = {},
+	},
+	{
+		"nvzone/showkeys",
+		cmd = "ShowkeysToggle",
+		opts = {
+			maxkeys = 5,
+		},
+	},
+	{
+		"cappyzawa/trim.nvim",
+		opts = {},
+	},
 }
 
 require("lazy").setup(plugins, opts)
 vim.cmd("colorscheme tokyonight-moon")
 vim.api.nvim_set_keymap("n", "<leader>l", "<cmd>Lazy<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>m", "<cmd>Mason<cr>", { noremap = true, silent = true })
-
-vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank({
-			higroup = "IncSearch",
-			timeout = 200,
-		})
-	end,
-})
